@@ -1,0 +1,282 @@
+{% extends 'customer/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-sm-12 text-center">
+            <h1>What's On Our Menu?</h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 col-sm-12 text-center">
+            <form method="GET" action="{% url 'menu-search' %}">
+                <div class="md-form mt-0 active-cyan-2">
+                    <input class="form-control" name="q" type="text" placeholder="Search Our Menu" aria-label="Search" value="{{ request.GET.q }}">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <form method="POST">
+            {% csrf_token %}
+            {% comment %} for todayspecials {% endcomment %}
+            <h4>Today's Special</h4>
+            {% for todayspecial in todayspecials %}
+            <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ todayspecial.pk }}">
+                <img class="rounded" src="{{ todayspecial.image.url }}" width="250" height="200">
+                <h5 class="mt-3">{{ todayspecial.name }}</h5>
+                <p>Price: {{ todayspecial.price }}</p>
+                <p>{{ todayspecial.quality }}</p>
+                {% comment %} <p>{{ todayspecial.category }}</p> {% endcomment %}
+                <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+            </div>
+            {% endfor %}
+
+            {% comment %} for recommended {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Recommended Section</h4>
+                {% for recommened in recommendeds %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ recommened.pk }}">
+                    <img class="rounded" src="{{ recommened.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ recommened.name }}</h5>
+                    <p>Price: {{ recommened.price }}</p>
+                    <p>{{ recommened.quality }}</p>
+                    {% comment %} <p>{{ recommened.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for sweets {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Sweets Section</h4>
+                {% for sweet in sweets %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ sweet.pk }}">
+                    <img class="rounded" src="{{ sweet.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ sweet.name }}</h5>
+                    <p>Price: {{ sweet.price }}</p>
+                    <p>{{ sweet.quality }}</p>
+                    {% comment %} <p>{{ sweet.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for breakfasts {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Breakfast Section</h4>
+                {% for breakfast in breakfasts %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ breakfast.pk }}">
+                    <img class="rounded" src="{{ breakfast.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ breakfast.name }}</h5>
+                    <p>Price: {{ breakfast.price }}</p>
+                    <p>{{ breakfast.quality }}</p>
+                    {% comment %} <p>{{ breakfast.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for thalicombos {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>ThaliCombo Section</h4>
+                {% for thalicombo in thalicombos %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ thalicombo.pk }}">
+                    <img class="rounded" src="{{ thalicombo.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ thalicombo.name }}</h5>
+                    <p>Price: {{ thalicombo.price }}</p>
+                    <p>{{ thalicombo.quality }}</p>
+                    {% comment %} <p>{{ thalicombo.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for Soups and Salad {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Soups and Salad Section</h4>
+                {% for soup in soups %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ soup.pk }}">
+                    <img class="rounded" src="{{ soup.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ soup.name }}</h5>
+                    <p>Price: {{ soup.price }}</p>
+                    <p>{{ soup.quality }}</p>
+                    {% comment %} <p>{{ soup.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for Starters {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Starter Section</h4>
+                {% for starter in starters %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ starter.pk }}">
+                    <img class="rounded" src="{{ starter.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ starter.name }}</h5>
+                    <p>Price: {{ starter.price }}</p>
+                    <p>{{ starter.quality }}</p>
+                    {% comment %} <p>{{ starter.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for Main Course {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Main Course Section</h4>
+                {% for maincourse in maincourses %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ maincourse.pk }}">
+                    <img class="rounded" src="{{ maincourse.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ maincourse.name }}</h5>
+                    <p>Price: {{ maincourse.price }}</p>
+                    <p>{{ maincourse.quality }}</p>
+                    {% comment %} <p>{{ maincourse.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for Breads {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Breads Section</h4>
+                {% for bread in breads %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ bread.pk }}">
+                    <img class="rounded" src="{{ bread.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ bread.name }}</h5>
+                    <p>Price: {{ bread.price }}</p>
+                    <p>{{ bread.quality }}</p>
+                    {% comment %} <p>{{ bread.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for Rice {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Rice Section</h4>
+                {% for rice in rices %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ rice.pk }}">
+                    <img class="rounded" src="{{ rice.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ rice.name }}</h5>
+                    <p>Price: {{ rice.price }}</p>
+                    <p>{{ rice.quality }}</p>
+                    {% comment %} <p>{{ rice.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for South Indian {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>South Indian Section</h4>
+                {% for southindian in southindians %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ southindian.pk }}">
+                    <img class="rounded" src="{{ southindian.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ southindian.name }}</h5>
+                    <p>Price: {{ southindian.price }}</p>
+                    <p>{{ southindian.quality }}</p>
+                    {% comment %} <p>{{ southindian.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for Fried Rice and Noodles {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Fried Rice and Noodles Section</h4>
+                {% for friedrice in friedrices %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ friedrice.pk }}">
+                    <img class="rounded" src="{{ friedrice.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ friedrice.name }}</h5>
+                    <p>Price: {{ friedrice.price }}</p>
+                    <p>{{ friedrice.quality }}</p>
+                    {% comment %} <p>{{ friedrice.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for Accompaniments {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Accompaniments Section</h4>
+                {% for accompaniment in accompaniments %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ accompaniment.pk }}">
+                    <img class="rounded" src="{{ accompaniment.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ accompaniment.name }}</h5>
+                    <p>Price: {{ accompaniment.price }}</p>
+                    <p>{{ accompaniment.quality }}</p>
+                    {% comment %} <p>{{ accompaniment.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% comment %} for Desserts and Beverages {% endcomment %}
+            <div class="row justify-content-center">
+                <h4>Desserts and Beverages Section</h4>
+                {% for dessert in desserts %}
+                <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+                    <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ dessert.pk }}">
+                    <img class="rounded" src="{{ dessert.image.url }}" width="250" height="200">
+                    <h5 class="mt-3">{{ dessert.name }}</h5>
+                    <p>Price: {{ dessert.price }}</p>
+                    <p>{{ dessert.quality }}</p>
+                    {% comment %} <p>{{ dessert.category }}</p> {% endcomment %}
+                    <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            
+
+            {% comment %} for user info when place order {% endcomment %}
+            <div class="form-group pt-3">
+                <label for="name">Full Name</label>
+                <input required class="form-control" type="text" placeholder="Your Name" name="name" />
+            </div>
+
+            <div class="form-group pt-3">
+                <label for="contact">Contact Number</label>
+                <input required class="form-control" type="text" placeholder="Your Contact Number" name="contact" />
+            </div>
+
+            <div class="form-group pt-3">
+                <label for="email">Email Address</label>
+                <input class="form-control" type="email" placeholder="example@gmail.com" name="email" />
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3">Place Order!</button>
+        </form>
+    </div>
+    {% comment %} <div class="row justify-content-center">
+        {% for item in menu_items %}
+        <div class="col-md-4 col-sm-12 text-center mb-5 mt-3">
+            <input type="checkbox" name="items[]" class="form-check-input form-group" value="{{ recommened.pk }}">
+            <img class="rounded" src="{{ item.image.url }}" width="250" height="200">
+            <h5 class="mt-3">{{ item.name }}</h5>
+            <p>Price: {{ item.price }}</p>
+            <p>{{ item.quality }}</p>
+            <p>{{ item.category }}</p>
+            <a href="{% url 'order' %}" style="text-decoration: none;"><button class="btn btn-success mt-3">Place Order!</button></a>
+        </div>
+        {% endfor %}
+    </div> {% endcomment %}
+    
+</div>
+{% endblock content %}
